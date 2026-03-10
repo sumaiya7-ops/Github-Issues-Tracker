@@ -97,3 +97,114 @@ function renderCards(apiResponse) {
             container.innerHTML += card;
          });
        }              
+
+       const searchBox = document.getElementById("searchBox");
+     const icon = document.createElement("span");
+     icon.innerHTML = '<i class="fas fa-search text-gray-400"></i>';
+     icon.className = "absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none";
+    if (searchBox) {   
+    searchBox.prepend(icon); 
+    }
+
+    async function loadData() {
+    const spinner = document.getElementById('spinner');
+    if (spinner) spinner.classList.remove('hidden');
+
+    try {
+        const res = await fetch('https://vercel.app');
+        const data = await res.json();
+         allData = data.data || data; 
+         renderCards(allData);
+       } catch (err) {
+           console.error("Data load failed!", err);
+       } finally {
+         if (spinner) spinner.classList.add('hidden');
+      }
+    }
+
+    const searchInput = document.getElementById("searchInput");
+
+   if (searchInput) {
+      searchInput.addEventListener("input", () => {
+         const query = searchInput.value.trim().toLowerCase();
+        const issues = Array.isArray(allData) ? allData : (allData.data || []);
+        const filteredIssues = issues.filter(issue => {
+            const title = (issue.title || "").toLowerCase();
+            const description = (issue.description || "").toLowerCase();
+            
+            return title.includes(query) || description.includes(query);
+        });
+        renderCards(filteredIssues);
+    });
+   }
+   loadData();
+
+   async function openIssueModal(issueId) {
+      try {
+        const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${issueId}`);
+        const response = await res.json();
+        const issue = response.data;
+
+        if (!issue) return;
+        document.getElementById('m-title').innerText = issue.title;     
+        document.getElementById('m-status').innerText = issue.status.toUpperCase();
+        document.getElementById('m-author').innerText = issue.opened_by;
+        document.getElementById('m-date').innerText = new Date(issue.createdAt).toDateString();
+
+   
+        const labelsContainer = document.getElementById('m-labels');
+        if (labelsContainer) {
+            labelsContainer.innerHTML = ''; 
+            (issue.labels || []).forEach(label => {
+                const span = document.createElement('span');
+                span.className = "text-[10px] font-bold border px-2 py-0.5 rounded-full flex items-center gap-1 uppercase mr-2 mb-1";
+                let color = "text-gray-500 bg-gray-100 border-gray-300";
+                let icon = "fa-tag";
+                if (label.toLowerCase() === 'bug') { color="text-red-500 bg-red-50 border-red-200"; icon="fa-bug"; }
+                else if (label.toLowerCase() === 'help wanted') { color="text-amber-500 bg-amber-50 border-amber-200"; icon="fa-life-ring"; }
+                else if (label.toLowerCase() === 'enhancement') { color="text-green-500 bg-green-50 border-green-200"; icon="fa-star"; }
+                span.className += ' ' + color;
+                span.innerHTML = `<i class="fa-solid ${icon}"></i> ${label}`;
+                labelsContainer.appendChild(span);
+            });
+        }
+        document.getElementById('m-desc').innerText = issue.description;      
+        document.getElementById('m-assignee').innerText = issue.assignee || "Not Assigned"; 
+        const priorityEl = document.getElementById('m-priority');
+        priorityEl.innerText = issue.priority ? issue.priority.toUpperCase() : "N/A";
+
+        if(issue.priority) {
+            if(issue.priority.toLowerCase() === 'high') priorityEl.style.backgroundColor = "#EF4444";
+            else if(issue.priority.toLowerCase() === 'medium') priorityEl.style.backgroundColor = "#FBBF24";
+            else if(issue.priority.toLowerCase() === 'low') priorityEl.style.backgroundColor = "#3B82F6";
+        } else {
+            priorityEl.style.backgroundColor = "#6B7280";
+
+        }
+        document.getElementById('issue_modal').showModal();
+
+    } catch (err) {
+        console.error("Error loading issue:", err);
+    }
+}
+
+function filterIssues(type, btn) {
+  
+    const allButtons = document.querySelectorAll('#tabContainer button');
+    allButtons.forEach(button => {
+        button.classList.remove('bg-purple-600', 'text-white');
+        button.classList.add('bg-white', 'text-gray-600');
+    });
+
+    btn.classList.add('bg-purple-600', 'text-white');
+    btn.classList.remove('bg-white', 'text-gray-600');
+    const issues = Array.isArray(allData) ? allData : (allData.data || []);
+    if (type === 'all') {
+        renderCards(issues);
+    } else {
+        const filtered = issues.filter(i => i.status.toLowerCase() === type.toLowerCase());
+        renderCards(filtered);
+    }
+}
+
+window.showSingleIssue = showModalDetails;
