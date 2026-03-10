@@ -2,23 +2,6 @@ let allData = [];
 const container = document.getElementById('issue-container');
 const spinner = document.getElementById('spinner');
 const countElement = document.getElementById('count');
-const modal = document.getElementById('modal');
-const modalContent = document.getElementById('modal-content');
-
-async function loadData() {
-    spinner.classList.remove('hidden');
-    try {
-        const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues');
-        allData = await res.json();
-        renderCards(allData);
-    } catch (err) {
-        alert("Data load failed!");
-        console.error(err);
-    } finally {
-        spinner.classList.add('hidden');
-    }
-}
-
 
 function renderCards(apiResponse) {
 
@@ -33,7 +16,7 @@ function renderCards(apiResponse) {
 
     issues.forEach(item => {
            const isClosed = item.status.toLowerCase() === 'closed';
-        const statusIcon = isClosed ?  'B13-A5-Github-Issue-Tracker/assets/Closed- Status .png'  : 'B13-A5-Github-Issue-Tracker/assets/Open-Status.png';
+        const statusIcon = isClosed ?  'B13-A5-Github-Issue-Tracker/assets/Closed- Status.png'  : 'B13-A5-Github-Issue-Tracker/assets/Open-Status.png';
         const borderColor = isClosed ? 'border-t-purple-600' : 'border-t-green-500';
   
     const labelsHtml = (item.labels || []).map(label => {
@@ -104,22 +87,6 @@ function renderCards(apiResponse) {
      icon.className = "absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none";
     if (searchBox) {   
     searchBox.prepend(icon); 
-    }
-
-    async function loadData() {
-    const spinner = document.getElementById('spinner');
-    if (spinner) spinner.classList.remove('hidden');
-
-    try {
-        const res = await fetch('https://vercel.app');
-        const data = await res.json();
-         allData = data.data || data; 
-         renderCards(allData);
-       } catch (err) {
-           console.error("Data load failed!", err);
-       } finally {
-         if (spinner) spinner.classList.add('hidden');
-      }
     }
 
     const searchInput = document.getElementById("searchInput");
@@ -229,11 +196,6 @@ function filterIssues(type, btn) {
     }
 }
 
-function closeModal() {
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-}
 
 window.onload = loadData;
 
-window.showSingleIssue = showModalDetails;
