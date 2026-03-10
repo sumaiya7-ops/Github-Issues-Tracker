@@ -207,4 +207,33 @@ function filterIssues(type, btn) {
     }
 }
 
+    async function loadData() {
+    const spinner = document.getElementById('spinner');
+    if (spinner) spinner.classList.remove('hidden');
+
+    try {
+        const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues');
+        const result = await res.json();  
+        allData = Array.isArray(result) ? result : (result.data || []);        
+        renderCards(allData);
+  
+        const allBtn = document.querySelector('button[onclick*="all"]');
+        if (allBtn) {
+            allBtn.classList.add('bg-purple-600', 'text-white');
+            allBtn.classList.remove('bg-white', 'text-gray-600');
+        }
+    } catch (err) {
+        console.error("ডাটা লোড হয়নি:", err);
+    } finally {
+        if (spinner) spinner.classList.add('hidden');
+    }
+}
+
+function closeModal() {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+}
+
+window.onload = loadData;
+
 window.showSingleIssue = showModalDetails;
