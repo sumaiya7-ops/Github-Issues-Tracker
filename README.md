@@ -4,7 +4,13 @@
 2. The spread operator helps to "spread" or "extract" elements from within a JavaScript Array or Object. It can easily create a new array by using the elements of an existing array. It is used to combine multiple arrays into a single new array.
 <!--3-->
 3. 3-1. map(): It executes a function on every element of an array and returns a new array with the results.
+
 3-2. filter(): It checks a specific condition and creates a new array containing only the elements that meet that condition.
 3-3. forEach(): It performs an action on each element of an array but does not return a new array (returns undefined).
 4. Arrow functions are a concise way to write JavaScript functions using the => syntax instead of the function keyword.
 5. In JavaScript, template literals are a modern way of writing strings using backticks. They allow you to easily embed variables and expressions within a string. Additionally, they make it simple to write multi-line text.
+<!--demo-->
+This is a demo frontend project.
+No real authentication or user data is collected.
+This project uses a demo public API for fetching issues.
+No user input or personal data is sent to any server.

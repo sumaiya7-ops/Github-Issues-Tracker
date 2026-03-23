@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - GitHub Issues Tracker</title>
+    <title>Demo Login - GitHub Issues Tracker</title>
  <!--tailwind-->
     <script src="https://tailwindcss.com"></script>
 
@@ -25,9 +25,15 @@
             <input type="text" id="username" placeholder="Enter username"  class="w-full border rounded-lg p-2.5 mb-4 focus:ring-2 focus:ring-purple-500 outline-none">
             
             <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-            <input type="password" id="password" placeholder="Enter Password" class="w-full border rounded-lg p-2.5 mb-6 focus:ring-2 focus:ring-purple-500 outline-none">
+            <input type="password" id="password" placeholder="Demo Password (Not real)" class="w-full border rounded-lg p-2.5 mb-6 focus:ring-2 focus:ring-purple-500 outline-none">
             
             <button onclick="login()" class="w-full bg-purple-600 text-white font-bold py-3 rounded-lg hover:bg-purple-700 transition">Sign In</button>
+            <!---->
+        <p class="text-red-500 text-xs mt-2">
+⚠️ This is a demo project. No real authentication or data collection is performed.
+</p>
+
+
         </div>
         <div class="mt-6 p-3 bg-purple-50 border border-purple-100 rounded-lg text-xs text-purple-700">
             <strong>Demo Admin:</strong> admin | <strong>Pass:</strong> admin123
@@ -36,11 +42,13 @@
 
     <script>
         function login() {
+             // Demo login assignment purpose, no real authentication
             const user = document.getElementById('username').value;
             const pass = document.getElementById('password').value;
 
             if(user === "admin" && pass === "admin123") {
-                localStorage.setItem("isLoggedIn", "true");
+                // Not storing any sensitive data, just demo navigation
+                localStorage.setItem("demoLogin", "true");
                 window.location.href = "New.html";
             } else {
                 alert("ভুল ইউজারনেম বা পাসওয়ার্ড! ব্যবহার করেছেন।");

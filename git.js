@@ -111,6 +111,7 @@ if (searchInput) {
 
 async function openIssueModal(issueId) {
     try {
+             // Fetching demo issue details (no sensitive data)
         const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${issueId}`);
         const response = await res.json();
         const issue = response.data;
@@ -177,7 +178,7 @@ async function loadData() {
     if (spinner) spinner.classList.remove('hidden');
 
     try {  
-        
+        // Demo API for assignment purpose only. No user data is sent.
         const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues');
 
         const result = await res.json();     
