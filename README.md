@@ -33,4 +33,5 @@ In this project, I implemented and practiced the following modern JavaScript con
 2. npm install
 3. npm start
 
-* Developed with ❤️ by sumaiya7-ops
+* Developed with ❤️ by [Sumaiya](https://www.linkedin.com/in/sumaiya-sorhad)  
+Frontend Developer
