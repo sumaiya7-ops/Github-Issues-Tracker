@@ -2,7 +2,7 @@
 
 A professional frontend tool to search and track GitHub repository issues using modern JavaScript and React.
 
-🔗 Live Demo
+🔗 Live Demo https://sumaiya7-ops.github.io/Github-Issues-Tracker/
 
 📖 Project Overview
 
