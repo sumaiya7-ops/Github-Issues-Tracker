@@ -22,6 +22,7 @@ In this project, I implemented and practiced the following modern JavaScript con
 ** Template Literals: Used backticks (``) for dynamic strings and multi-line text.
 ## 📸 Screenshot
 ![GitHub Issues Tracker Screenshot](https://github.com/sumaiya7-ops/Github-Issues-Tracker/blob/main/assets/screenshot.png)
+
 ✨ Main Features
 ** Real-time API Integration: Fetches issues directly from GitHub.
 ** Dynamic Search: Instantly search for any public repository.
