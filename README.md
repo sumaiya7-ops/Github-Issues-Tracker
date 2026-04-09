@@ -29,7 +29,7 @@ In this project, I implemented and practiced the following modern JavaScript con
 * No real authentication or personal data is collected.
 * Uses a public demo API; no personal data is sent to any server.
 🚀 Local Setup
-1. git clone https://github.com/https://github.com/sumaiya7-ops/Github-Issues-Tracker.git
+1. git clone https://github.com/sumaiya7-ops/Github-Issues-Tracker.git
 2. npm install
 3. npm start
 
